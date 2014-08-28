@@ -63,7 +63,7 @@ RUN apt-get -yqq install google-chrome-stable
 RUN apt-get -yqq install firefox
 
 # Configure Supervisor 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Configure VNC Password
 RUN x11vnc -storepasswd selenium ~/.vnc/passwd
