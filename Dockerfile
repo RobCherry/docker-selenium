@@ -25,22 +25,20 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 # Install utilities
 RUN apt-get -yqq install ca-certificates curl dnsutils man openssl unzip wget
 
-# Install supervisor
-RUN apt-get -yqq install supervisor
-RUN mkdir -p /var/log/supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # Install xvfb and fonts
 RUN apt-get -yqq install xvfb fonts-ipafont-gothic xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
+# Install Fluxbox (window manager)
+RUN apt-get -yqq install fluxbox
+ 
 # Install VNC
 RUN apt-get -yqq install x11vnc
 RUN mkdir -p ~/.vnc
-RUN x11vnc -storepasswd selenium ~/.vnc/passwd
 
-# Install window manager
-RUN apt-get -yqq install fluxbox
- 
+# Install Supervisor
+RUN apt-get -yqq install supervisor
+RUN mkdir -p /var/log/supervisor
+
 # Install Java
 RUN apt-get -yqq install openjdk-7-jre-headless
 
@@ -50,12 +48,10 @@ RUN wget --no-verbose -O /opt/selenium/selenium-server-standalone.jar http://sel
 
 # Install Chrome WebDriver
 RUN wget --no-verbose -O /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
-RUN rm -rf /opt/selenium/chromedriver
-RUN unzip /tmp/chromedriver_linux64.zip -d /opt/selenium/
+RUN mkdir -p /opt/chromedriver-2.10
+RUN unzip /tmp/chromedriver_linux64.zip -d /opt/chromedriver-2.10
+RUN chmod +x /opt/chromedriver-2.10/chromedriver
 RUN rm /tmp/chromedriver_linux64.zip
-RUN mv /opt/selenium/chromedriver /opt/selenium/chromedriver-2.10
-RUN chmod 755 /opt/selenium/chromedriver-2.10
-RUN ln -fs /opt/selenium/chromedriver-2.10 /usr/bin/chromedriver
 
 # Install Google Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -65,6 +61,12 @@ RUN apt-get -yqq install google-chrome-stable
 
 # Install Firefox
 RUN apt-get -yqq install firefox
+
+# Configure Supervisor 
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Configure VNC Password
+RUN x11vnc -storepasswd selenium ~/.vnc/passwd
 
 # Create a default user with sudo access
 RUN useradd selenium --shell /bin/bash --create-home
