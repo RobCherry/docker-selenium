@@ -87,4 +87,4 @@ RUN chmod 755 /opt/google/chrome/google-chrome
 # Ports
 EXPOSE 4444 5900
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
