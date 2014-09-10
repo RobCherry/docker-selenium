@@ -44,7 +44,7 @@ RUN apt-get -yqq install openjdk-7-jre-headless
 
 # Install Selenium
 RUN mkdir -p /opt/selenium
-RUN wget --no-verbose -O /opt/selenium/selenium-server-standalone.jar http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
+RUN wget --no-verbose -O /opt/selenium/selenium-server-standalone.jar http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.0.jar
 
 # Install Chrome WebDriver
 RUN wget --no-verbose -O /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
