@@ -44,7 +44,8 @@ RUN apt-get -yqq install openjdk-7-jre-headless
 
 # Install Selenium
 RUN mkdir -p /opt/selenium
-RUN wget --no-verbose -O /opt/selenium/selenium-server-standalone.jar http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.0.jar
+RUN wget --no-verbose -O /opt/selenium/selenium-server-standalone-2.43.1.jar http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar
+RUN ln -fs /opt/selenium/selenium-server-standalone-2.43.1.jar /opt/selenium/selenium-server-standalone.jar
 
 # Install Chrome WebDriver
 RUN wget --no-verbose -O /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
@@ -52,6 +53,7 @@ RUN mkdir -p /opt/chromedriver-2.10
 RUN unzip /tmp/chromedriver_linux64.zip -d /opt/chromedriver-2.10
 RUN chmod +x /opt/chromedriver-2.10/chromedriver
 RUN rm /tmp/chromedriver_linux64.zip
+RUN ln -fs /opt/chromedriver-2.10/chromedriver /usr/local/bin/chromedriver
 
 # Install Google Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
