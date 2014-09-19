@@ -83,7 +83,7 @@ ENV DISPLAY :20.0
 # Disable the SUID sandbox so that Chrome can launch without being in a privileged container.
 # One unfortunate side effect is that `google-chrome --help` will no longer work.
 RUN dpkg-divert --add --rename --divert /opt/google/chrome/google-chrome.real /opt/google/chrome/google-chrome
-RUN echo "#!/bin/bash\n/opt/google/chrome/google-chrome.real --disable-setuid-sandbox \"\$@\"" > /opt/google/chrome/google-chrome
+RUN echo "#!/bin/bash\nexec /opt/google/chrome/google-chrome.real --disable-setuid-sandbox \"\$@\"" > /opt/google/chrome/google-chrome
 RUN chmod 755 /opt/google/chrome/google-chrome
 
 # Ports
