@@ -1,6 +1,7 @@
-# Docker build to spawn a selenium server with Chrome and Firefox
+# Docker container for creating a selenium server with Chrome and Firefox
 
 Includes
+
 * Selenium Server (2.43.1)
 * Google Chrome (Latest Stable)
 * Mozilla Firefox (Latest Stable)
